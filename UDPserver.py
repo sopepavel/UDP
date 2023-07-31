@@ -13,7 +13,8 @@ udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Créer le contexte SSL
 context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-context.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
+(jls_ext)ract_var = context
+jls_extract_var.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
 
 # Activer les options de vérification des certificats clients (optionnel)
 context.verify_mode = ssl.CERT_OPTIONAL

@@ -1,0 +1,20 @@
+from Crypto.Cipher import AES
+import base64
+
+def decrypt_data(key, encrypted_data):
+    cipher = AES.new(key, AES.MODE_ECB)
+    decrypted_data = cipher.decrypt(base64.b64decode(encrypted_data)).rstrip(b'\0')
+    return decrypted_data.decode()
+
+# Configuration LoRa
+# Configurer les paramètres LoRa pour le serveur
+
+# Clé de chiffrement partagée avec le client
+shared_key = b'ma_cle_secrete123'  # Remplacez par la même clé utilisée par le client
+
+# Code pour recevoir les données du client via LoRa
+received_data = "DONNEES_CHIFFREES"  # Remplacez cela par les données reçues via LoRa
+
+# Déchiffrer les données reçues
+decrypted_data = decrypt_data(shared_key, received_data)
+print("Données déchiffrées:", decrypted_data)
