@@ -1,0 +1,33 @@
+import socket
+import ssl
+
+def main():
+    # Configuration du client DNS over TLS
+    host = 'dns.example.com'
+    port = 853
+
+    # Création de la socket pour le client
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Connexion TLS
+    context = ssl.create_default_context()
+    client_socket = context.wrap_socket(client_socket, server_hostname=host)
+    client_socket.connect((host, port))
+
+    # Exemple de requête DNS à envoyer
+    dns_request = b'\x00\x01\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x03www\x07example\x03com\x00\x00\x01\x00\x01'
+
+    # Envoyer la requête DNS
+    client_socket.sendall(dns_request)
+
+    # Attendre la réponse DNS
+    response_data = client_socket.recv(1024)
+
+    # Traiter la réponse DNS ici
+    print("Réponse DNS :", response_data)
+
+    # Fermeture de la connexion
+    client_socket.close()
+
+if __name__ == "__main__":
+    main()
